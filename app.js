@@ -39,7 +39,7 @@ class DataDomainManager {
     }
 
     getAllProperties() {
-      return Object.getOwnPropertyNames(this.guestList[0]).concat(Object.getOwnPropertyNames(this.companyList[0]));
+      return Object.getOwnPropertyNames(this.guestList[0]).concat(Object.getOwnPropertyNames(this.guestList[0].reservation)).concat(Object.getOwnPropertyNames(this.companyList[0]));
     }
 
 }
@@ -81,6 +81,7 @@ class MessageCenter {
               template = template.replace(propertyList[x], guestAndCompanyList[propertyList[x]]);
             }
           }
+          console.log(template);
           return template;
         }
     }
@@ -163,7 +164,23 @@ function userTextAssertion() {
       }
 }
 
-console.log(templateAssertion());
+function templateAssertion2() {
+    let dataDomain = new DataDomainManager();
+    let timeUtility = new TimeUtility();
+    let message = new MessageCenter(dataDomain, timeUtility);
+    let testResult = message.renderMessageByTemplateId(2,6,5);
+    let expectedResult = 'Good evening Hewitt, and welcome to The Fawlty Towers! Room 349 is now ready for you. Enjoy your stay, and let us know if you need anything.';
+    if (testResult === expectedResult) {
+      return 'Success for Template Assertion Test 2';
+    }
+    else {
+      console.log(testResult);
+      return 'Failed Template Assertion Test 2'
+    }
+}
+
+// console.log(templateAssertion());
+// console.log(userTextAssertion());
 console.log(userTextAssertion());
 let dataTrial = new DataDomainManager();
 let timeUtility = new TimeUtility();

@@ -2,5 +2,9 @@
   {
     "message": "company, city, timezone, firstName, lastName, roomNumber, startTimestamp, endTimestamp",
     "id": 1
+  },
+  {
+    "message": "Good timezone firstName, and welcome to company! Room roomNumber is now ready for you. Enjoy your stay, and let us know if you need anything.",
+    "id": 2
   }
 ]
