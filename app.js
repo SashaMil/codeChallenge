@@ -46,6 +46,8 @@ class DataDomainManager {
 
 // This class utiilizes companyData and guestData from dataDomainManager and renders messages.
 // Contains a method to look up a template by id as well as render message by user inputted text or to render by Template // ID
+// To create your own custom template or to add a template to the MessageTemplates.json file, be sure to use the following keywords for placeholder variables:
+// firstName lastName roomNumber startTimestamp endTimestamp company city timezone
 class MessageCenter {
     constructor(dataDomainManager, timeUtility) {
         this.messageTemplateList = messageTemplates;
@@ -81,7 +83,6 @@ class MessageCenter {
               template = template.replace(propertyList[x], guestAndCompanyList[propertyList[x]]);
             }
           }
-          console.log(template);
           return template;
         }
     }
@@ -104,7 +105,7 @@ class TimeUtility {
             timeOfDay = this.timeOfDay(new Date().toLocaleString('en-US', { timeZone: 'America/Mexico_City', hour: 'numeric'}));
             break;
           case 'US/Eastern':
-            timeOfDay = this.timeOfDay(Date().toLocaleString('en-US', { timeZone: 'America/New_York', hour: 'numeric'}));
+            timeOfDay = this.timeOfDay(new Date().toLocaleString('en-US', { timeZone: 'America/New_York', hour: 'numeric'}));
             break;
           default:
             return;
@@ -116,7 +117,6 @@ class TimeUtility {
       // Morning: 3 AM to 11 AM, Day: Noon to 4PM, Night: Every other hour
       timeOfDay(time) {
         if (time.slice(time.length - 2) === 'AM' && (parseInt(time.slice(0,2)) > 2)) {
-          console.log('good');
           return 'morning';
         }
         else if (time.slice(time.length - 2) === 'PM' && (parseInt(time.slice(0,2)) < 5) || (parseInt(time.slice(0,2)) === 12)) {
@@ -133,13 +133,15 @@ class TimeUtility {
 // ASSERTION TESTS
 // *****************************************************
 
+// For assertion tests, it is important to change the expected time of day to
+// match the ranges provided in the comments above the Time Utility class.
 
 function templateAssertion() {
   let dataDomain = new DataDomainManager();
   let timeUtility = new TimeUtility();
   let message = new MessageCenter(dataDomain, timeUtility);
   let testResult = message.renderMessageByTemplateId(1,1,1);
-  let expectedResult = 'Hotel California, Santa Barbara, evening, Candy, Pace, 529, 1486654792, 1486852373';
+  let expectedResult = 'Hotel California, Santa Barbara, morning, Candy, Pace, 529, 1486654792, 1486852373';
   if (testResult === expectedResult) {
     return 'Success for Template Assertion Test';
   }
@@ -153,13 +155,13 @@ function userTextAssertion() {
     let dataDomain = new DataDomainManager();
     let timeUtility = new TimeUtility();
     let message = new MessageCenter(dataDomain, timeUtility);
-    let testResult = message.renderMessageByText('company, city, timezone, firstName, lastName, roomNumber, startTimestamp, endTimestamp',1,1);
-    let expectedResult = 'Hotel California, Santa Barbara, evening, Candy, Pace, 529, 1486654792, 1486852373';
+    let testResult = message.renderMessageByText('Hello company, city, timezone, firstName, lastName, roomNumber, startTimestamp, endTimestamp',1,1);
+    let expectedResult = 'Hello Hotel California, Santa Barbara, morning, Candy, Pace, 529, 1486654792, 1486852373';
       if (testResult === expectedResult) {
         return 'Success for User Text Assertion Test';
       }
       else {
-        console.log(testResult);
+        console.log('test', testResult);
         return 'Failure for User Text Assertion Test';
       }
 }
@@ -169,7 +171,7 @@ function templateAssertion2() {
     let timeUtility = new TimeUtility();
     let message = new MessageCenter(dataDomain, timeUtility);
     let testResult = message.renderMessageByTemplateId(2,6,5);
-    let expectedResult = 'Good evening Hewitt, and welcome to The Fawlty Towers! Room 349 is now ready for you. Enjoy your stay, and let us know if you need anything.';
+    let expectedResult = 'Good morning Hewitt, and welcome to The Fawlty Towers! Room 349 is now ready for you. Enjoy your stay, and let us know if you need anything.';
     if (testResult === expectedResult) {
       return 'Success for Template Assertion Test 2';
     }
@@ -179,10 +181,6 @@ function templateAssertion2() {
     }
 }
 
-// console.log(templateAssertion());
-// console.log(userTextAssertion());
+console.log(templateAssertion());
 console.log(userTextAssertion());
-let dataTrial = new DataDomainManager();
-let timeUtility = new TimeUtility();
-let message = new MessageCenter(dataTrial, timeUtility);
-// console.log(message.renderMessageByTemplateId(1, 1, 1));
+console.log(templateAssertion2());
