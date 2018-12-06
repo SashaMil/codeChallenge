@@ -1,7 +1,5 @@
 # codeChallenge
 
-## Getting Started
-
 ### Prerequisites
 
 1. [Node.js](http://nodejs.org/)
