@@ -7,7 +7,7 @@
 ### Overview
 
 OOP Programing written in JavaScript that allows the user to look up both guests and companies by ID. Additionally, users 
-can reference the ID's of a guest, company, and message template to create messages dynamically. The user also has the option
+can reference the IDs of a guest, company, and message template to create messages dynamically. The user also has the option
 of inputting their own custom text as a message template.
 
 The keywords for the user to use in a template to positional data dynamically are as follows:
