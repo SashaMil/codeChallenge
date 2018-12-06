@@ -11,7 +11,7 @@ Application can be run as a node app. "node app.js".
 
 ### Overview
 
-I picked JavaScript because that is what I am most familiar.
+I picked JavaScript because that is what I am most familiar with.
 
 OOP Programing written in JavaScript that allows the user to look up both guests and companies by ID. Additionally, users 
 can reference the IDs of a guest, company, and message template to create messages dynamically. The user also has the option
