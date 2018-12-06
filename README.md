@@ -29,6 +29,8 @@ timezone
 
 Additionally, timezone will adjust due to the location of the selected hotel.
 
+The way I chose to design it was to create classes that interact with one another.
+
 I have implemented a few assertion tests to verify correctness.
 
 If I had more time, I would make the template messages be based on tokens, rather than the parsing I did.
